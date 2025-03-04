@@ -10,13 +10,13 @@ const Menu = ({ setFilter, setFilterName }: any) => {
                 textValue={'All'}
                 setFilter={setFilter}
                 setFilterName={setFilterName}
-            />
+                />
             <MenuItem 
                 value={'completed'}
                 textValue={'Completed'}
                 setFilter={setFilter}
                 setFilterName={setFilterName}
-            />
+                />
             <MenuItem 
                 value={'pending'}
                 textValue={'Pending'}

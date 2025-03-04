@@ -9,7 +9,6 @@ function App() {
         <img src="src\static\img\logo-fit.png" className="w-1/4 lg:w-1/2 max-w-xss mx-auto lg:mx-0"></img>
         <h1 className="text-3xl font-bold text-white content-center">Task Manager</h1>
       </header>
-
       <TaskManager />
     </div>
   );

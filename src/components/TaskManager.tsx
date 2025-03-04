@@ -13,8 +13,13 @@ const TaskManager = () => {
 
   // Get tasks from the local storage on the page mount
   useEffect(() => {
+    setSelectedFilters();
     setTasks(getFromLocalStorage());
   }, []);
+
+  useEffect(() => {
+    setSelectedFilters();
+  }, [filter])
 
   // Update the state list (not have to go to the localstorage every time to get data) and the localStorage.
   const updateTasksList = (newList: Task[]) => {
@@ -31,7 +36,6 @@ const TaskManager = () => {
   };
   
   const filteredTasks = tasks.filter((task) => {
-    setSelectedFilters();
     if (filter === "completed") return task.completed === true;
     if (filter === "pending") return task.completed === false;
     return true;
@@ -69,7 +73,7 @@ const TaskManager = () => {
 
   return (
     <div className="container flex flex-col lg:flex-row mx-auto pt-8 justify-around items-center">
-      <div className="w-full lg:px-16">
+      <div className="w-full lg:px-16 self-start">
         <h2 className="mb-4 text-white text-2xl text-bold">Insert new tasks on the list: </h2>
         <form onSubmit={handleAddTask} className="mb-16 flex">
           <input
@@ -88,17 +92,31 @@ const TaskManager = () => {
           <Menu
             setFilter={setFilter}
             setFilterName={setFilterName}
+            setSelectedFilters={setSelectedFilters}
             />
-          <ul className="p-4 bg-dark-gray-900 rounded shadow">
-          <h2 className="mb-4 text-white text-2xl text-bold text-center">{filterName + ' tasks'}!</h2>
-            {filteredTasks.map((task) => (
+          <ul className="p-4 bg-dark-gray-900 rounded shadow min-h-128">
+          <h2 className="mb-4 text-white text-3xl text-bold text-center">{filterName + ' tasks'}!</h2>
+          {filteredTasks.length > 0 ?
+            filteredTasks.map((task) => (
               <TaskItem
               key={task.id}
               task={task}
               onDelete={handleDeleteTask}
               onToggle={toggleTaskCompletion}
               />
-            ))}
+            ))
+          :
+            <div className="flex flex-col">
+              <span className="mt-8 text-white text-1xl text-center">{"There are no " + (filter === 'all' ? '' : (filterName + ' ')) + 'tasks yet'}</span>
+              <span className="text-white text-1xl text-center">{
+                  filter === 'completed' ?
+                  "Complete a task to see on this list!"
+                    :            
+                  "Add a new one and start to control your tasks!"
+                }
+              </span>
+            </div>
+          }
           </ul>
         </div>
     </div>
