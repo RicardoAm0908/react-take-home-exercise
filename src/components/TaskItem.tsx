@@ -2,11 +2,11 @@ import React from "react";
 
 const TaskItem = ({ task, onDelete, onToggle }: any) => {
   return (
-    <li className="flex items-center justify-between border-b py-2">
+    <li className="flex items-center justify-between border-b py-0">
       <span
         onClick={() => onToggle(task.id)}
         className={`cursor-pointer ${
-          task.isCompleted ? "text-black" : "line-through text-green-500"
+          task.completed ? "line-through text-green-500" : "text-black"
         }`}
       >
         {task.title}
@@ -14,12 +14,7 @@ const TaskItem = ({ task, onDelete, onToggle }: any) => {
 
       <button
         onClick={() => onDelete(task.id)}
-        style={{
-          backgroundColor: "red",
-          color: "white",
-          padding: "4px 8px",
-          borderRadius: "4px",
-        }}
+        className="rounded bg-red-600 text-white py-2 px-2"
       >
         Delete
       </button>
