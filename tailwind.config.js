@@ -16,7 +16,7 @@ module.exports = {
         },
         'cyan-blue': {
           600: '#3F4352',
-        }
+        },
       },
       spacing: {
         '4px': '4px',
@@ -26,7 +26,7 @@ module.exports = {
       },
       minHeight: {
         '128': '32rem',  // cria uma classe min-h-128 com altura mínima de 32rem
-      }
+      },
     },
   },
   plugins: [],
