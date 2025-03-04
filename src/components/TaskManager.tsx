@@ -9,6 +9,7 @@ const TaskManager = () => {
   const [tasks, setTasks] = useState<any[]>([]);
   const [filter, setFilter] = useState("all");
   const [newTask, setNewTask] = useState<string>("");
+  const [filterName, setFilterName] = useState<string>("All");
 
   // Get tasks from the local storage on the page mount
   useEffect(() => {
@@ -28,7 +29,7 @@ const TaskManager = () => {
       else f.classList.remove('border-b-2', 'border-b-white', 'font-bold');
     });
   };
-
+  
   const filteredTasks = tasks.filter((task) => {
     setSelectedFilters();
     if (filter === "completed") return task.completed === true;
@@ -67,54 +68,39 @@ const TaskManager = () => {
  
 
   return (
-    <div className="container mx-auto border-gray-600 border-2 bg-gray-700 p-4 rounded shadow">
-      <form onSubmit={handleAddTask} className="mb-4 flex">
-        <input
-          type="text"
-          placeholder="New task..."
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          className="flex-grow rounded-l py-2 px-3 bg-gray-800"
-        />
-        <button type="submit" className="bg-blue-500 text-white px-4 rounded-r">
-          Add
-        </button>
-      </form>
-      <Menu
-        setFilter={setFilter}
-      />
-      
-        {/* <button 
-          id="allButton"
-          onClick={() => setFilter("all")} 
-          className="filter-button text-white font-bold px-2"
-        >
-          All
-        </button>
-        <button
-          id="completedButton"
-          onClick={() => setFilter("completed")}
-          className="filter-button text-white font-bold px-2"
-        >
-          Completed
-        </button>
-        <button 
-          id="pendingButton"
-          onClick={() => setFilter("pending")} 
-          className="filter-button text-white font-bold px-2"
-        >
-          Pending
-        </button> */}
-      <ul>
-        {filteredTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={handleDeleteTask}
-            onToggle={toggleTaskCompletion}
-          />
-        ))}
-      </ul>
+    <div className="container flex flex-col lg:flex-row mx-auto pt-8 justify-around items-center">
+      <div className="w-full lg:px-16">
+        <h2 className="mb-4 text-white text-2xl text-bold">Insert new tasks on the list: </h2>
+        <form onSubmit={handleAddTask} className="mb-16 flex">
+          <input
+            type="text"
+            placeholder="New task..."
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            className="flex-grow rounded-l py-2 px-3 bg-dark-gray-900 text-white"
+            />
+          <button type="submit" className="bg-blue-500 text-white px-6 rounded-r">
+            Add
+          </button>
+        </form>
+      </div>
+      <div className="w-full lg:px-8 lg:border-l-2 lg:border-l-dark-gray-600">
+          <Menu
+            setFilter={setFilter}
+            setFilterName={setFilterName}
+            />
+          <ul className="p-4 bg-dark-gray-900 rounded shadow">
+          <h2 className="mb-4 text-white text-2xl text-bold text-center">{filterName + ' tasks'}!</h2>
+            {filteredTasks.map((task) => (
+              <TaskItem
+              key={task.id}
+              task={task}
+              onDelete={handleDeleteTask}
+              onToggle={toggleTaskCompletion}
+              />
+            ))}
+          </ul>
+        </div>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import React from "react";
 
 
-const MenuItem = ({ value, textValue, setFilter }: any) => {
+const MenuItem = ({ value, textValue, setFilter, setFilterName }: any) => {
   return (
-    <li className="filter-button text-white font-bold px-2 cursor-pointer" onClick={() => setFilter(value)} id={value + "Button"}>{textValue}</li>
+    <li className="filter-button text-white font-bold px-6 cursor-pointer w-full text-center" onClick={() => {setFilter(value); setFilterName(textValue)}} id={value + "Button"}>{textValue}</li>
   );
 };
 
